@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2 class="container" style="text-align: center;">Arama Sonuçları</h2>
+
+<div class="container">
+    
+    {% if query %}
+    
+    <div>
+        {% if posts %}
+            {% for post in posts %}
+                <div class="card" style="background-color: rgb(255, 201, 101);">
+                    <div style="display: flex;">
+                        <div style="flex: 1; text-align: right;">
+                            <ul style="list-style: none; padding-right: 100px;">
+                                <li>
+                                    <span style="font-size: 25px; color: rgb(155, 9, 9);">Kullanıcı:</span>
+                                    <br>
+                                    <span style="font-size: 25px;">{{ post.username }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div style="flex: 1; text-align: center;">
+                            <img src="{{ post.image.url }}" alt="Fotoğraf" style="width: 600px; height: auto;">
+                        </div>
+                        <div style="flex: 1;">
+                            <ul style="list-style: none; padding-left: 20px;">
+                                <li>
+                                    <span style="font-size: 25px; color: rgb(155, 9, 9);">Açıklama:</span>
+                                    <span style="font-size: 20px; color: black;">{{post.message}}</span>
+                                </li>
+                                <li>&nbsp;</li>
+                                <li>
+                                    <span style="font-size: 18px; color: rgb(155, 9, 9);">Kayıt Tarihi:</span>
+                                    <span style="font-size: 15px; color: black;">{{post.tarih}}</span>
+                                </li>
+                                <li>&nbsp;</li>
+                                <li>&nbsp;</li>
+                                <li>&nbsp;</li>
+                                {% if post.username.username == user.username %}
+                                    <a href="{% url 'image_app:delete_image' id=post.id %}" class="btn btn-danger">Gönderiyi Sil</a>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h3>Aramanızla eşleşen sonuç bulunamadı.</h3>
+        {% endif %}
+    </div>
+
+    {% else %}
+        <h1>Lütfen aramak istediğiniz sorguyu giriniz.</h1>
+    {% endif %}
+
+</div>
+
+{% endblock %}

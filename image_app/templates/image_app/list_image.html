@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="background-color: rgba(248, 248, 115, 0.856);">
+    <h2 class="container" style="text-align: center; font-size: 50px; color: rgb(155, 9, 9);">Image Social</h2>
+    <br><br>
+    <div class="container">
+        <ul>
+            {% for image in images reversed %}
+
+                <div class="card" style="background-color: rgb(255, 201, 101);">
+                    <div style="display: flex;">
+                        <div style="flex: 1; text-align: right;">
+                            <ul style="list-style: none; padding-right: 100px;">
+                                <li>
+                                    <span style="font-size: 25px; color: rgb(155, 9, 9);">Kullanıcı:</span>
+                                    <br>
+                                    <span style="font-size: 25px;">{{image.username}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div style="flex: 1; text-align: center;">
+                            <img src="{{ image.image.url }}" alt="Fotoğraf" style="width: 600px; height: auto;">
+                        </div>
+                        <div style="flex: 1;">
+                            <ul style="list-style: none; padding-left: 20px;">
+                                <li>
+                                    <span style="font-size: 25px; color: rgb(155, 9, 9);">Açıklama:</span>
+                                    <li>&nbsp;</li>
+                                    <span style="font-size: 20px; color: black;">{{image.message}}</span>
+                                </li>
+                                <li>&nbsp;</li>
+                                <li>
+                                    <span style="font-size: 15px; color: black;">{{image.tarih}}</span>
+                                </li>
+                                <li>&nbsp;</li>
+                                {% if image.username == user %}
+                                    <a href="{% url 'image_app:delete_image' id=image.id %}" class="btn btn-danger">Gönderiyi Sil</a>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                {% if not forloop.last %}
+                    <br><br>
+                {% endif %}
+
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
